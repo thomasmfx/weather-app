@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="./css/style.css">
-  <script src="index.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="shortcut icon" href="../assets/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="index.js" defer></script>
 </head>
-<body>
-  
+<body> 
+    <header>
+        <button id="temperature" class="degrees">C</button>
+        <div id="search-container">
+            <input type="text" id="search-bar" placeholder="Location" maxlength="50">
+            <button id="search-icon">
+                <img src="../assets/icons/search.svg" alt="Icon: search location">
+            </button>
+        </div>
+    </header>
 </body>
 </html>

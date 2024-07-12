@@ -2,6 +2,8 @@
 
 /* || Fonts */
 
+@import url(https://fonts.bunny.net/css?family=montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i);
+
 /* || CSS Reset*/
 
 *, *::before, *::after {
@@ -18,4 +20,73 @@ p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; }
 
 input, button, textarea, select { font: inherit; }
 
-/* || ... */
+/* || Root / Body */
+
+:root {
+  --bg-one: linear-gradient(to right, #2C5364, #203A43, #0F2027);
+  --bg-two: linear-gradient(to right, #2193b0, #6dd5ed);
+  --bg-three: linear-gradient(to right, #fdc830, #f37335);
+}
+
+body {
+  font-family: Montserrat, 'sans serif';
+
+  height: 100dvh;
+  width: 100vw;
+
+  background: #0F2027;  /* fallback for old browsers */
+  background: var(--bg-one)
+} 
+
+/* || Header */
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
+  position: relative;
+}
+
+button#temperature {
+  position: absolute;
+  margin-left: .5em;
+  left: 0;
+
+  font-size: 2rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+div#search-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  column-gap: 1em;
+  width: 600px;
+}
+
+input#search-bar {
+  padding: .2em;
+  border: none;
+  width: 100%;
+  border-radius: 5px;
+  outline: none;
+  color: darkgray;
+  /* From https://css.glass */
+  background: rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(11px);
+  -webkit-backdrop-filter: blur(11px);
+}
+
+button#search-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.degrees::after {
+  content: '°';
+}
