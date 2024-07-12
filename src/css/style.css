@@ -176,6 +176,7 @@ i:not(i.fa-cloud-showers-heavy) {
 
 .percent::after {
   content: '%';
+  font-size: 1.2rem;
 }
 
 .kms::after {
