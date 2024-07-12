@@ -73,7 +73,7 @@ input#search-bar {
   width: 100%;
   border-radius: 5px;
   outline: none;
-  color: darkgray;
+  color: #a9a9a9;
   /* From https://css.glass */
   background: rgba(0, 0, 0, 0.4);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -89,4 +89,21 @@ button#search-icon {
 
 .degrees::after {
   content: '°';
+}
+
+/* || Footer */
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 1em;
+  font-size: 2rem;
+  color: #a9a9a9;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 0.5em;
+  opacity: 50%;
 }
