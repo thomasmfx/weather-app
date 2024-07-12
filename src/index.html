@@ -7,20 +7,58 @@
     <link rel="shortcut icon" href="../assets/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="./css/style.css">
     <script src="index.js" defer></script>
+    <script src="https://kit.fontawesome.com/5e7b46bf3f.js" crossorigin="anonymous"></script>
 </head>
 <body> 
-    <header>
-        <button id="temperature" class="degrees">C</button>
-        <div id="search-container">
-            <input type="text" id="search-bar" placeholder="Location" maxlength="50">
-            <button id="search-icon">
-                <img src="../assets/icons/search.svg" alt="Icon: search location">
+    <main>
+        <header>
+            <button id="temperature">
+                <i class="fa-solid fa-bars"></i>
             </button>
+            <div id="search-container">
+                <input type="text" id="search-bar" maxlength="50">
+                <button id="search-icon">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+        </header>
+        <div id="weather-info-container">
+            <section id="main-weather-info">
+                <h3 id="main-weather-condition">Partially cloudy</h3>
+                <div id="main-info">    
+                    <p class="degrees">
+                        <!-- <i class="fa-solid fa-temperature-half"></i> -->
+                        22
+                    </p>
+                    <i class="fa-solid fa-cloud-showers-heavy"></i>
+                </div>
+                <p id="date">
+                    <i class="fa-solid fa-calendar-day"></i>
+                    Wed, 10th July
+                </p>
+                <ul id="main-other-info">
+                    <li> 
+                        <i class="fa-solid fa-temperature-arrow-down"></i>
+                        Min: 
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-droplet"></i>
+                        Umidity:
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-temperature-arrow-up"></i>
+                        Max:
+                    </li>
+                    <li> 
+                        <i class="fa-solid fa-wind"></i>
+                        Wind:
+                    </li>
+                </ul>
+            </section>
         </div>
-    </header>
-    <main></main>
-    <footer>
-        <p id="current-location">São Paulo, SP, Brazil</p>
-    </footer>
+        <footer>
+            <p id="current-location">São Paulo, SP, Brazil</p>
+        </footer>
+    </main>
 </body>
 </html>
