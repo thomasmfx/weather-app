@@ -15,19 +15,19 @@
             <button id="temperature">
                 <i class="fa-solid fa-bars"></i>
             </button>
-            <div id="search-container">
+            <form id="search-location" novalidate>
                 <input type="text" id="search-bar" maxlength="50">
-                <button id="search-icon">
+                <button id="search-btn" type="submit">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
-            </div>
+            </form>
         </header>
         <div id="weather-info-container">
             <section id="main-weather-info">
-                <h3 id="main-weather-condition">Partially cloudy</h3>
+                <h3 id="main-weather-condition">Clear day</h3>
                 <div id="main-info">    
                     <p id="temp" class="degrees">22</p>
-                    <i id="tempicon" class="fa-solid fa-cloud-showers-heavy"></i>
+                    <img id="tempicon" src="../assets/1st Set - Monochrome/partly-cloudy-night.svg" alt="">
                 </div>
                 <p id="date">
                     <i class="fa-solid fa-calendar-day"></i>
@@ -40,7 +40,7 @@
                     </li>
                     <li>
                         <i class="fa-solid fa-droplet"></i>
-                        Umidity: <span id="umidity" class="percent">21</span>
+                        Humidity: <span id="humidity" class="percent">21</span>
                     </li>
                     <li>
                         <i class="fa-solid fa-temperature-arrow-up"></i>
@@ -56,6 +56,12 @@
         <footer>
             <p id="current-location">São Paulo, SP, Brazil</p>
         </footer>
+        <div id="error-message-container">
+            <div id="error-message">
+                <button id="close-error-message"><i class="fa-solid fa-xmark"></i></button>
+                <p>Could not find location</p>
+            </div>
+        </div>
     </main>
 </body>
 </html>
