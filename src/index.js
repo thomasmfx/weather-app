@@ -32,7 +32,7 @@ async function fetchWeather(location){
        { mode: 'cors' }
     );
     const data = await response.json();
-
+    
     weather.condition = data.currentConditions.conditions;
     weather.temp = data.currentConditions.temp;
     weather.location = data.resolvedAddress;
@@ -70,7 +70,7 @@ function updateBackgroundColor(weather){
   } else {
     body.style.background = 'var(--default)';
   };
-}
+};
 
 function displayWeather(weatherObj) {
   if (weatherObj){
@@ -92,7 +92,7 @@ function displayWeather(weatherObj) {
     .textContent = weatherObj.wind;
     document.querySelector('#tempicon')
     .src = `../assets/1st Set - Monochrome/${weatherObj.icon}.svg`;
-    updateBackgroundColor(weatherObj)
+    updateBackgroundColor(weatherObj);
   };
 };
 
@@ -109,19 +109,18 @@ closeErrorMsg.addEventListener('click', () => {
 
 async function firstLoad(){
   if(localStorage.getItem('weather')){
-    let data = JSON.parse(localStorage.getItem('weather'))
-    displayWeather(data)
+    const data = JSON.parse(localStorage.getItem('weather'));
+    displayWeather(data);
     setTimeout(() => {
       hideLoader();
-    }, 1000)
+    }, 3000);
   } else {
-    let data = await fetchWeather('são paulo')
+    const data = await fetchWeather('são paulo');
     displayWeather(data)
     setTimeout(() => {
       hideLoader();
-    }, 1000)
-  }
-}
+    }, 3000);
+  };
+};
 
-window.onload = firstLoad()
-
+window.onload = firstLoad();
