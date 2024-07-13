@@ -123,4 +123,12 @@ async function firstLoad(){
   };
 };
 
+const dropdownBtn = document.querySelector('#dropdown-btn');
+dropdownBtn.addEventListener('click', () => {
+  const content = document.querySelector('#dropdown-content');
+  content.style.visibility === 'hidden'
+  ? content.style.visibility = 'visible'
+  : content.style.visibility = 'hidden'
+})
+
 window.onload = firstLoad();
