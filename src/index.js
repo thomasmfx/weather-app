@@ -14,16 +14,6 @@ function getInputValue() {
   return null;
 };
 
-function storeWeather(weatherObj) {
-  localStorage.setItem('weather', JSON.stringify(weatherObj));
-};
-
-
-function hideLoader(){
-  const loader = document.querySelector('#loader-container');
-  loader.style.visibility = 'hidden';
-};
-
 async function fetchWeather(location){
   const weather = {};
 
@@ -42,7 +32,6 @@ async function fetchWeather(location){
     weather.humidity = data.days[0].humidity;
     weather.wind = data.days[0].windspeed;
     weather.icon = data.currentConditions.icon;
-    storeWeather(weather)
   } catch (error) {
     errorMsg.style.visibility = 'visible';
     errorMsg.style.display = '';
@@ -50,26 +39,6 @@ async function fetchWeather(location){
   };
 
   return weather;
-};
-
-function updateBackgroundColor(weather){
-  const body = document.querySelector('body');
-  if (weather.icon.includes('day')) {
-    body.style.background = 'var(--day)';
-  } else if (weather.icon.includes('night')) {
-    body.style.background = 'var(--night)';
-  } else if (weather.icon.includes('snow')) {
-    body.style.background = 'var(--snow)';
-  } else if (
-    weather.icon.includes('overcast')
-    || weather.icon.includes('cloudy')
-  ) {
-    body.style.background = 'var(--overcast)';
-  } else if (weather.icon.includes('rain')) { 
-    body.style.background = 'var(--rain)';
-  } else {
-    body.style.background = 'var(--default)';
-  };
 }
 
 function displayWeather(weatherObj) {
@@ -92,14 +61,20 @@ function displayWeather(weatherObj) {
     .textContent = weatherObj.wind;
     document.querySelector('#tempicon')
     .src = `../assets/1st Set - Monochrome/${weatherObj.icon}.svg`;
-    updateBackgroundColor(weatherObj)
   };
+
+  return null;
+};
+
+function storeWeather(weatherObj) {
+  localStorage.setItem('weather', JSON.stringify(weatherObj));
 };
 
 locationForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   const weather = await fetchWeather(getInputValue());
   displayWeather(weather);
+  storeWeather(weather);
 });
 
 closeErrorMsg.addEventListener('click', () => {
@@ -107,21 +82,11 @@ closeErrorMsg.addEventListener('click', () => {
   errorMsg.style.display = '';
 });
 
-async function firstLoad(){
-  if(localStorage.getItem('weather')){
-    let data = JSON.parse(localStorage.getItem('weather'))
-    displayWeather(data)
-    setTimeout(() => {
-      hideLoader();
-    }, 1000)
-  } else {
-    let data = await fetchWeather('são paulo')
-    displayWeather(data)
-    setTimeout(() => {
-      hideLoader();
-    }, 1000)
-  }
-}
+window.onload = () => {
+  if (localStorage.getItem('weather') != null) {
+    displayWeather(JSON.parse(localStorage.getItem('weather')));
+  };
+};
 
-window.onload = firstLoad()
+
 
