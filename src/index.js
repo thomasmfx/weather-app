@@ -1,8 +1,10 @@
-const locationForm = document.querySelector('form');
+const form = document.querySelector('form');
 const errorMsg = document.querySelector('#error-message-container');
 const closeErrorMsg = document.querySelector('#close-error-message');
+const toggleTempBtns = document.querySelectorAll('.temperature');
+let userTempPreference = 'tempC';
 
-function getInputValue() {
+function getLocationValue() {
   const input = document.querySelector('#search-bar');
   const locationName = input.value;
 
@@ -18,15 +20,9 @@ function storeWeather(weatherObj) {
   localStorage.setItem('weather', JSON.stringify(weatherObj));
 };
 
-
-function hideLoader(){
-  const loader = document.querySelector('#loader-container');
-  loader.style.visibility = 'hidden';
-};
-
 async function fetchWeather(location){
   const weather = {};
-
+  
   try {
     const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=metric&key=FK7J8WFSF4RXPK7GLDSQ78P6S&contentType=json`,
        { mode: 'cors' }
@@ -34,7 +30,9 @@ async function fetchWeather(location){
     const data = await response.json();
     
     weather.condition = data.currentConditions.conditions;
-    weather.temp = data.currentConditions.temp;
+    weather.tempC = data.currentConditions.temp;
+    weather.tempK = (weather.tempC + 273);
+    weather.tempF = ((weather.tempC * 1.8) + 32);
     weather.location = data.resolvedAddress;
     weather.localDate = data.days[0].datetime;
     weather.minTemp = data.days[0].tempmin;
@@ -77,7 +75,7 @@ function displayWeather(weatherObj) {
     document.querySelector('#main-weather-condition')
     .textContent = weatherObj.condition;
     document.querySelector('#temp')
-    .textContent = weatherObj.temp;
+    .textContent = weatherObj.tempC;
     document.querySelector('#current-location')
     .textContent = weatherObj.location;
     document.querySelector('#localdate')
@@ -96,9 +94,9 @@ function displayWeather(weatherObj) {
   };
 };
 
-locationForm.addEventListener('submit', async (e) => {
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
-  const weather = await fetchWeather(getInputValue());
+  const weather = await fetchWeather(getLocationValue());
   displayWeather(weather);
 });
 
@@ -107,28 +105,75 @@ closeErrorMsg.addEventListener('click', () => {
   errorMsg.style.display = '';
 });
 
+const dropdownBtn = document.querySelector('#dropdown-btn');
+const content = document.querySelector('#dropdown-content');
+
+dropdownBtn.addEventListener('click', () => {
+  if (content.style.visibility === 'visible') {
+    content.style.visibility = 'hidden';
+  } else {
+    content.style.visibility = 'visible';
+  };
+});
+
+
+function changeTempPreference(button, value){
+  toggleTempBtns.forEach((btn) => {
+    btn.firstElementChild.className = ''
+  })
+
+  button.firstElementChild.className = 'stripe';
+  userTempPreference = value;
+  localStorage.setItem('tempPreference', JSON.stringify(userTempPreference));
+};
+
+
+function updateUserTempPreference(){
+  const currentTempPreference = JSON.parse(localStorage.getItem('tempPreference'));
+  const currentWeather = JSON.parse(localStorage.getItem('weather'));
+  if(currentTempPreference){
+    document.querySelector('#temp')
+    .textContent = currentWeather[`${currentTempPreference}`];
+  };
+  
+  document.querySelector(`#${currentTempPreference}`)
+  .firstElementChild
+  .className = 'stripe';
+};
+
+toggleTempBtns.forEach((button) => {
+  button.addEventListener('click', () => {
+    changeTempPreference(button, button.id);
+    updateUserTempPreference();
+  });
+});
+
+function hideLoader(){
+  const loader = document.querySelector('#loader-container');
+  loader.style.visibility = 'hidden';
+};
+
 async function firstLoad(){
   if(localStorage.getItem('weather')){
-    const data = JSON.parse(localStorage.getItem('weather'));
+    const lastLocation = JSON.parse(localStorage.getItem('weather'));
+    const data = await fetchWeather(lastLocation.location);
     displayWeather(data);
     setTimeout(() => {
       hideLoader();
-    }, 3000);
+    }, 2000);
   } else {
     const data = await fetchWeather('são paulo');
     displayWeather(data)
     setTimeout(() => {
       hideLoader();
-    }, 3000);
+    }, 2000);
   };
-};
 
-const dropdownBtn = document.querySelector('#dropdown-btn');
-dropdownBtn.addEventListener('click', () => {
-  const content = document.querySelector('#dropdown-content');
-  content.style.visibility === 'hidden'
-  ? content.style.visibility = 'visible'
-  : content.style.visibility = 'hidden'
-})
+  if(!localStorage.getItem('tempPreference')){
+    localStorage.setItem('tempPreference', JSON.stringify(userTempPreference));
+  };
+
+  updateUserTempPreference();
+};
 
 window.onload = firstLoad();

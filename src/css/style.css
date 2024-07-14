@@ -32,6 +32,7 @@ input, button, textarea, select { font: inherit; }
   --snow: linear-gradient(to right, #c0c0aa, #1cefff);
   --overcast: linear-gradient(to right, #485563, #29323c);
   --rain: linear-gradient(to right, #0575e6, #021b79);
+  --loader-bg: linear-gradient(to right, #000000, #434343);
 }
 
 body {
@@ -91,12 +92,6 @@ div#dropdown-content {
   row-gap: 1em;
 }
 
-.stripe {
-  height: 100%;
-  width: 100%;
-  background-color: #011627;
-}
-
 div.temp-wrapper {
   display: flex;
   column-gap: .5em;
@@ -106,7 +101,6 @@ button.temperature:hover {
   cursor: pointer;
   background-color: #0116271d;
 }
-
 
 button#dropdown-btn {
   border-radius: 5px;
@@ -283,6 +277,7 @@ i.fa-wind {
 /* || Load animation */
 
 #loader-container {
+  /* visibility: hidden; */
   position: absolute; 
   left: 0; 
   right: 0; 
@@ -331,7 +326,7 @@ i.fa-wind {
   }
 }
 
-/* || Classes */
+/* || Dinamyc Classes */
 
 .degrees::after {
   content: '°';
@@ -347,7 +342,8 @@ i.fa-wind {
   font-size: 1rem;
 }
 
-.current::after {
-  content: '•';
-  margin-left: .5em;
+.stripe {
+  height: 100%;
+  width: 100%;
+  background-color: var(--black);
 }
