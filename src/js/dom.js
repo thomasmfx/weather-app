@@ -51,7 +51,7 @@ function displayWeather() {
     document.querySelector('#wind')
     .textContent = weather.wind;
     document.querySelector('#tempicon')
-    .src = `../assets/1st Set - Monochrome/${weather.icon}.svg`;
+    .src = `./assets/1st Set - Monochrome/${weather.icon}.svg`;
 
     updateBackgroundColor(weather);
   };
