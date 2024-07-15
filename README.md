@@ -1,1 +1,1 @@
-# airbnb-linting-template
+# Weather App

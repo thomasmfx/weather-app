@@ -2,7 +2,7 @@ import {
   displayWeather,
   hideLoader,
   errorMsg,
-  updateTemperatureInDOM
+  updateTemperatureChoice
 } from "./dom.js";
 
 function formatData(data){
@@ -68,7 +68,7 @@ function storeTemperature(temp){
 
 function toggleTemperature(newTemp){
   storeTemperature(newTemp);
-  updateTemperatureInDOM(newTemp);
+  updateTemperatureChoice(newTemp);
   displayWeather();
 };
 
@@ -77,7 +77,7 @@ async function firstLoad(){
   const storedWeather = JSON.parse(localStorage.getItem('weather'));
 
   if(storedTemp){
-    updateTemperatureInDOM(storedTemp);
+    updateTemperatureChoice(storedTemp);
   } else {
     toggleTemperature('c');
   };

@@ -76,7 +76,7 @@ function updateBackgroundColor(weather){
   };
 };
 
-function updateTemperatureInDOM(temp) {
+function updateTemperatureChoice(temp) {
   const button = document.querySelectorAll('.temperature');
   button.forEach((btn) => {
     if(btn.id === temp) {
@@ -121,5 +121,5 @@ export {
   displayWeather,
   hideLoader,
   errorMsg,
-  updateTemperatureInDOM
+  updateTemperatureChoice
 }
