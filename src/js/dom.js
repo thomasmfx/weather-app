@@ -93,10 +93,9 @@ function hideLoader() {
   loader.style.visibility = 'hidden';
 };
 
-form.addEventListener('submit', async (e) => {
+form.addEventListener('submit', (e) => {
   e.preventDefault();
-  const weather = await fetchWeather(getLocationValue());
-  displayWeather(weather);
+  fetchWeather(getLocationValue()).then(displayWeather);
 });
 
 closeErrorMsg.addEventListener('click', () => {

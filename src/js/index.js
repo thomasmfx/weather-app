@@ -56,6 +56,7 @@ async function fetchWeather(location) {
        { mode: 'cors' }
     );
     const data = await response.json();
+    console.log(data)
     return onSucces('weather', data);
   } catch (error) {
     return onError();
@@ -72,7 +73,7 @@ function toggleTemperature(newTemp) {
   displayWeather();
 };
 
-async function firstLoad() {
+function firstLoad() {
   const storedTemp = JSON.parse(localStorage.getItem('temp'));
   const storedWeather = JSON.parse(localStorage.getItem('weather'));
 
@@ -83,20 +84,18 @@ async function firstLoad() {
   };
 
   if (storedWeather){
-    await fetchWeather(storedWeather.location);
-    displayWeather();
-
-    setTimeout(() => {
-      hideLoader();
-    }, 2000);
+    fetchWeather(storedWeather.location)
+    .then(displayWeather)
+    .finally(
+      setTimeout(() => {
+        hideLoader();
+      }, 2500)
+    );
   } else {
-    await fetchWeather('são paulo');
-    // localStorage.setItem('weather', JSON.stringify(temporary))
-    displayWeather();
-
+    fetchWeather('são paulo').then(displayWeather);
     setTimeout(() => {
       hideLoader();
-    }, 2000);
+    }, 2500);
   };
 };
 
@@ -134,3 +133,5 @@ export {
 //   "wind": 14.4,
 //   "icon": "cloudy"
 // }
+
+// localStorage.setItem('weather', JSON.stringify(temporary))
