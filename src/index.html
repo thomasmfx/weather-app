@@ -6,7 +6,8 @@
     <title>Weather App</title>
     <link rel="shortcut icon" href="../assets/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="./css/style.css">
-    <script src="index.js" defer></script>
+    <script src="index.js" defer type="module"></script>
+    <script src="domOnly.js" defer type="module"></script>
     <script src="https://kit.fontawesome.com/5e7b46bf3f.js" crossorigin="anonymous"></script>
 </head>
 <body> 
@@ -17,19 +18,19 @@
                     <i class="fa-solid fa-bars"></i>
                 </button>
                 <div id="dropdown-content">
-                    <button id="tempC" class="temperature">
+                    <button id="c" class="temperature">
                         <div></div>
                         <div class="temp-wrapper">
                             <span>Celsius</span>
                         </div> 
                     </button>
-                    <button id="tempF" class="temperature">
+                    <button id="f" class="temperature">
                         <div></div>
                         <div class="temp-wrapper">
                             <span>Fahrenheit</span>
                         </div> 
                     </button>
-                    <button id="tempK" class="temperature">
+                    <button id="k" class="temperature">
                         <div></div>
                         <div class="temp-wrapper">
                             <span>Kelvin</span>
