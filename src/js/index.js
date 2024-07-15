@@ -5,7 +5,7 @@ import {
   updateTemperatureChoice
 } from "./dom.js";
 
-function formatData(data){
+function formatData(data) {
   const dataObj = {};
 
   dataObj.condition = data.currentConditions.conditions;
@@ -31,58 +31,58 @@ function formatData(data){
   };
 
   return dataObj;
-}
+};
 
 function storeData(dataName, data) {
   localStorage.setItem(`${dataName}`, JSON.stringify(data));
 };
 
-function getStoredData(){
+function getStoredData() {
   return JSON.parse(localStorage.getItem('weather'));
 };
 
-function onSucces(dataName, data){
+function onSucces(dataName, data) {
   storeData(dataName, formatData(data));
 };
 
-function onError(){
+function onError() {
   errorMsg.style.visibility = 'visible';
   errorMsg.style.display = '';
 };
 
-async function fetchWeather(location){
+async function fetchWeather(location) {
   try {
     const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=metric&key=FK7J8WFSF4RXPK7GLDSQ78P6S&contentType=json`,
        { mode: 'cors' }
     );
     const data = await response.json();
-    onSucces('weather', data);
+    return onSucces('weather', data);
   } catch (error) {
     return onError();
   };
 };
 
-function storeTemperature(temp){
+function storeTemperature(temp) {
   localStorage.setItem('temp', JSON.stringify(temp));
 };
 
-function toggleTemperature(newTemp){
+function toggleTemperature(newTemp) {
   storeTemperature(newTemp);
   updateTemperatureChoice(newTemp);
   displayWeather();
 };
 
-async function firstLoad(){
+async function firstLoad() {
   const storedTemp = JSON.parse(localStorage.getItem('temp'));
   const storedWeather = JSON.parse(localStorage.getItem('weather'));
 
-  if(storedTemp){
+  if (storedTemp) {
     updateTemperatureChoice(storedTemp);
   } else {
     toggleTemperature('c');
   };
 
-  if(storedWeather){
+  if (storedWeather){
     await fetchWeather(storedWeather.location);
     displayWeather();
 
@@ -92,7 +92,7 @@ async function firstLoad(){
   } else {
     await fetchWeather('são paulo');
     // localStorage.setItem('weather', JSON.stringify(temporary))
-    displayWeather()
+    displayWeather();
 
     setTimeout(() => {
       hideLoader();
@@ -106,7 +106,10 @@ export {
   fetchWeather,
   toggleTemperature,
   getStoredData
-}
+};
+
+// In case of making too many requestes while modifying the code in some type of
+// hot reload, use this object instead of fetching new requests
 
 // let temporary = {
 //   "condition": "Overcast",

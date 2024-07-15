@@ -33,11 +33,11 @@ function displayWeather() {
     tempPreference = 'c';
   };
 
-  if (weather){
+  if (weather) {
     document.querySelector('#main-weather-condition')
     .textContent = weather.condition;
     document.querySelector('#temp')
-    .textContent = weather.temp[`${tempPreference}`]
+    .textContent = weather.temp[`${tempPreference}`];
     document.querySelector('#current-location')
     .textContent = weather.location;
     document.querySelector('#localdate')
@@ -52,6 +52,7 @@ function displayWeather() {
     .textContent = weather.wind;
     document.querySelector('#tempicon')
     .src = `../assets/1st Set - Monochrome/${weather.icon}.svg`;
+
     updateBackgroundColor(weather);
   };
 };
@@ -79,15 +80,15 @@ function updateBackgroundColor(weather){
 function updateTemperatureChoice(temp) {
   const button = document.querySelectorAll('.temperature');
   button.forEach((btn) => {
-    if(btn.id === temp) {
+    if (btn.id === temp) {
       btn.firstElementChild.className = 'stripe';
     } else {
-      btn.firstElementChild.className = ''
+      btn.firstElementChild.className = '';
     };
   });
 };
 
-function hideLoader(){
+function hideLoader() {
   const loader = document.querySelector('#loader-container');
   loader.style.visibility = 'hidden';
 };
@@ -113,7 +114,7 @@ dropdownBtn.addEventListener('click', () => {
 
 toggleTemperatureBtns.forEach((button) => {
   button.addEventListener('click', () => {
-    toggleTemperature(button.id)
+    toggleTemperature(button.id);
   });
 });
 
