@@ -1,8 +1,8 @@
 import { 
   displayWeather,
   hideLoader,
-  errorMsg,
-  updateTemperatureChoice
+  updateTemperatureChoice,
+  displayErrorMessage
 } from "./dom.js";
 
 function formatData(data) {
@@ -46,8 +46,7 @@ function onSucces(dataName, data) {
 };
 
 function onError() {
-  errorMsg.style.visibility = 'visible';
-  errorMsg.style.display = '';
+  displayErrorMessage();
 };
 
 async function fetchWeather(location) {

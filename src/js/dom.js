@@ -6,7 +6,6 @@ import {
 
 const form = document.querySelector('form');
 const errorMsg = document.querySelector('#error-message-container');
-const closeErrorMsg = document.querySelector('#close-error-message');
 const toggleTemperatureBtns = document.querySelectorAll('.temperature');
 const dropdownBtn = document.querySelector('#dropdown-btn');
 const content = document.querySelector('#dropdown-content');
@@ -21,6 +20,26 @@ function getLocationValue() {
   };
 
   return null;
+};
+
+function updateBackgroundColor(weather){
+  const body = document.querySelector('body');
+  if (weather.icon.includes('day')) {
+    body.style.background = 'var(--day)';
+  } else if (weather.icon.includes('night')) {
+    body.style.background = 'var(--night)';
+  } else if (weather.icon.includes('snow')) {
+    body.style.background = 'var(--snow)';
+  } else if (
+    weather.icon.includes('overcast')
+    || weather.icon.includes('cloudy')
+  ) {
+    body.style.background = 'var(--overcast)';
+  } else if (weather.icon.includes('rain')) { 
+    body.style.background = 'var(--rain)';
+  } else {
+    body.style.background = 'var(--default)';
+  };
 };
 
 function displayWeather() {
@@ -57,26 +76,6 @@ function displayWeather() {
   };
 };
 
-function updateBackgroundColor(weather){
-  const body = document.querySelector('body');
-  if (weather.icon.includes('day')) {
-    body.style.background = 'var(--day)';
-  } else if (weather.icon.includes('night')) {
-    body.style.background = 'var(--night)';
-  } else if (weather.icon.includes('snow')) {
-    body.style.background = 'var(--snow)';
-  } else if (
-    weather.icon.includes('overcast')
-    || weather.icon.includes('cloudy')
-  ) {
-    body.style.background = 'var(--overcast)';
-  } else if (weather.icon.includes('rain')) { 
-    body.style.background = 'var(--rain)';
-  } else {
-    body.style.background = 'var(--default)';
-  };
-};
-
 function updateTemperatureChoice(temp) {
   const button = document.querySelectorAll('.temperature');
   button.forEach((btn) => {
@@ -93,14 +92,29 @@ function hideLoader() {
   loader.style.visibility = 'hidden';
 };
 
+function closeErrorMessage() {
+  errorMsg.style.visibility = 'hidden';
+  errorMsg.style.display = '';
+};
+
+function displayErrorMessage() {
+  errorMsg.style.visibility = 'visible';
+  errorMsg.style.display = '';
+
+  const closeErrorMsg = document.querySelector('#close-error-message');
+  closeErrorMsg.addEventListener('click', () => {
+    closeErrorMessage();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' || e.key === 'Esc'){
+      closeErrorMessage();
+    };
+  });
+};
+
 form.addEventListener('submit', (e) => {
   e.preventDefault();
   fetchWeather(getLocationValue()).then(displayWeather);
-});
-
-closeErrorMsg.addEventListener('click', () => {
-  errorMsg.style.visibility = 'hidden';
-  errorMsg.style.display = '';
 });
 
 dropdownBtn.addEventListener('click', () => {
@@ -109,6 +123,12 @@ dropdownBtn.addEventListener('click', () => {
   } else {
     content.style.visibility = 'visible';
   };
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' || e.key === 'Esc'){
+      content.style.visibility = 'hidden';
+    };
+  });
 });
 
 toggleTemperatureBtns.forEach((button) => {
@@ -120,6 +140,6 @@ toggleTemperatureBtns.forEach((button) => {
 export {
   displayWeather,
   hideLoader,
-  errorMsg,
+  displayErrorMessage,
   updateTemperatureChoice
-}
+};
