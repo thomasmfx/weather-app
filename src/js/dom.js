@@ -43,7 +43,7 @@ function updateBackgroundColor(weather){
 };
 
 function displayWeather() {
-  let weather = getStoredData();
+  const weather = getStoredData();
   let tempPreference;
 
   if(localStorage.getItem('temp')) {

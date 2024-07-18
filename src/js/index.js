@@ -55,7 +55,6 @@ async function fetchWeather(location) {
        { mode: 'cors' }
     );
     const data = await response.json();
-    console.log(data)
     return onSucces('weather', data);
   } catch (error) {
     return onError();
